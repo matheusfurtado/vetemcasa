@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Solicitações - Vet em Casa</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="assets/logo.svg" alt="Vet em Casa" height="30" class="me-2">
+                Vet em Casa 🐾
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="admin.html">Solicitações</a>
+                <a class="nav-link" href="index.html">Nova Solicitação</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Container Principal -->
+    <div class="container my-5">
+        <!-- Área para alertas dinâmicos -->
+        <div id="alertContainer"></div>
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="text-success fw-semibold">Painel de Solicitações</h1>
+            <button type="button" class="btn btn-outline-success" id="exportJsonBtn">
+                Exportar JSON
+            </button>
+        </div>
+
+        <!-- Área para exportação JSON -->
+        <div id="jsonExportArea" class="mb-4" style="display: none;">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Dados Exportados (JSON)</h5>
+                </div>
+                <div class="card-body">
+                    <textarea id="jsonOutput" class="form-control" rows="10" readonly></textarea>
+                    <small class="text-muted">
+                        Este JSON pode ser usado como evidência para laudos de qualidade e relatórios da disciplina.
+                    </small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabela de Solicitações -->
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div id="noDataMessage" class="text-center py-5 text-muted" style="display: none;">
+                    <div class="bg-light rounded p-4">
+                        <h5>Nenhuma solicitação ainda</h5>
+                        <p class="mb-0">As solicitações de atendimento aparecerão aqui quando forem enviadas.</p>
+                    </div>
+                </div>
+
+                <div id="tableContainer" class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead class="table-success">
+                            <tr>
+                                <th>ID / Data</th>
+                                <th>Status</th>
+                                <th>Tutor / Contato</th>
+                                <th>Endereço</th>
+                                <th>Pet</th>
+                                <th>Data Desejada</th>
+                                <th>Motivo</th>
+                                <th>Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody id="solicitacoesTableBody">
+                            <!-- Conteúdo será gerado dinamicamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

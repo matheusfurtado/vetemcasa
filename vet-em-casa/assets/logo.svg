@@ -1,0 +1,38 @@
+<svg width="120" height="40" viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fundo do logo -->
+  <rect width="120" height="40" fill="none"/>
+  
+  <!-- Pata (ícone principal) -->
+  <g transform="translate(8, 8)">
+    <!-- Almofada principal da pata -->
+    <ellipse cx="8" cy="15" rx="6" ry="8" fill="#198754"/>
+    
+    <!-- Dedos da pata -->
+    <circle cx="3" cy="8" r="3" fill="#198754"/>
+    <circle cx="8" cy="6" r="3" fill="#198754"/>
+    <circle cx="13" cy="8" r="3" fill="#198754"/>
+    <circle cx="8" cy="4" r="2.5" fill="#198754"/>
+  </g>
+  
+  <!-- Texto "Vet em Casa" -->
+  <text x="32" y="16" font-family="Arial, sans-serif" font-size="12" font-weight="600" fill="#198754">Vet em</text>
+  <text x="32" y="28" font-family="Arial, sans-serif" font-size="12" font-weight="600" fill="#198754">Casa</text>
+  
+  <!-- Pequeno coração decorativo -->
+  <g transform="translate(92, 12)">
+    <path d="M8,2 C6,0 3,0 1,2 C-1,4 -1,7 1,9 L8,16 L15,9 C17,7 17,4 15,2 C13,0 10,0 8,2 Z" 
+          fill="#dc3545" transform="scale(0.6)"/>
+  </g>
+  
+  <!-- Sombra sutil para profundidade -->
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="1" dy="1" stdDeviation="1" flood-color="#00000020"/>
+    </filter>
+  </defs>
+  
+  <!-- Aplicar sombra à pata -->
+  <g transform="translate(8, 8)" filter="url(#shadow)">
+    <ellipse cx="8" cy="15" rx="6" ry="8" fill="#146c43" opacity="0.3"/>
+  </g>
+</svg>
