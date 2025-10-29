@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vet em Casa 🐾 - Solicitar Atendimento (Teste)</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --vet-primary: #198754;
+            --vet-primary-dark: #146c43;
+            --vet-light: #f8f9fa;
+        }
+        body {
+            background-color: var(--vet-light);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .navbar-brand {
+            font-weight: 600;
+            font-size: 1.25rem;
+        }
+        .card {
+            border: none;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        }
+        .text-success {
+            color: var(--vet-primary) !important;
+        }
+        .btn-success {
+            background-color: var(--vet-primary);
+            border-color: var(--vet-primary);
+        }
+        .alert {
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+        .alert-success {
+            background-color: rgba(25, 135, 84, 0.1);
+            color: var(--vet-primary-dark);
+        }
+        .alert-danger {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: #842029;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                🐾 Vet em Casa
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="admin-inline.html">Área da Veterinária</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Container Principal -->
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow-sm">
+                    <div class="card-body p-4">
+                        <h1 class="text-center mb-4 text-success fw-semibold">
+                            Solicitar Atendimento Domiciliar
+                        </h1>
+                        
+                        <p class="text-center text-muted mb-4">
+                            Preencha o formulário abaixo e nós entraremos em contato para confirmar o horário
+                        </p>
+
+                        <!-- Área para alertas dinâmicos -->
+                        <div id="alertContainer"></div>
+
+                        <!-- Formulário -->
+                        <form id="solicitacaoForm">
+                            <div class="row">
+                                <!-- Nome do Tutor -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="nomeTutor" class="form-label">
+                                        Nome do Tutor <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="text" class="form-control" id="nomeTutor" name="nomeTutor" required>
+                                </div>
+
+                                <!-- Telefone -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="telefone" class="form-label">
+                                        Telefone/WhatsApp <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="tel" class="form-control" id="telefone" name="telefone" 
+                                           placeholder="(11) 99999-9999" required>
+                                </div>
+                            </div>
+
+                            <!-- Endereço -->
+                            <div class="mb-3">
+                                <label for="endereco" class="form-label">
+                                    Endereço Completo <span class="text-danger">*</span>
+                                </label>
+                                <textarea class="form-control" id="endereco" name="endereco" rows="2" 
+                                         placeholder="Rua, número, bairro, cidade" required></textarea>
+                            </div>
+
+                            <div class="row">
+                                <!-- Nome do Pet -->
+                                <div class="col-md-4 mb-3">
+                                    <label for="nomePet" class="form-label">
+                                        Nome do Pet <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="text" class="form-control" id="nomePet" name="nomePet" required>
+                                </div>
+
+                                <!-- Espécie -->
+                                <div class="col-md-4 mb-3">
+                                    <label for="especie" class="form-label">
+                                        Espécie <span class="text-danger">*</span>
+                                    </label>
+                                    <select class="form-select" id="especie" name="especie" required>
+                                        <option value="">Selecione...</option>
+                                        <option value="cachorro">Cachorro</option>
+                                        <option value="gato">Gato</option>
+                                    </select>
+                                </div>
+
+                                <!-- Idade -->
+                                <div class="col-md-4 mb-3">
+                                    <label for="idadeAnos" class="form-label">Idade (anos)</label>
+                                    <input type="number" class="form-control" id="idadeAnos" name="idadeAnos" 
+                                           min="0" max="30" placeholder="Opcional">
+                                </div>
+                            </div>
+
+                            <!-- Data Desejada -->
+                            <div class="mb-3">
+                                <label for="dataDesejada" class="form-label">
+                                    Data e Horário Desejados <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" class="form-control" id="dataDesejada" name="dataDesejada" 
+                                       placeholder="Ex: 30/10 às 19h" required>
+                                <div class="form-text text-muted">
+                                    <small>Horários fora de 08h–21h podem não ser confirmados imediatamente.</small>
+                                </div>
+                            </div>
+
+                            <!-- Motivo -->
+                            <div class="mb-4">
+                                <label for="motivo" class="form-label">
+                                    Motivo da Consulta <span class="text-danger">*</span>
+                                </label>
+                                <textarea class="form-control" id="motivo" name="motivo" rows="4" 
+                                         placeholder="Descreva os sintomas ou motivo da consulta..." required></textarea>
+                            </div>
+
+                            <!-- Botão de Envio -->
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success btn-lg px-5">
+                                    Solicitar Atendimento
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rodapé -->
+    <footer class="bg-light text-center py-3 mt-5">
+        <div class="container">
+            <small class="text-muted">Vet em Casa • Atendimento veterinário domiciliar</small>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // JavaScript inline para teste
+        const STORAGE_KEY = 'vetemcasa_solicitacoes';
+
+        function initStorage() {
+            if (!localStorage.getItem(STORAGE_KEY)) {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify([]));
+            }
+        }
+
+        function getAllSolicitacoes() {
+            try {
+                const data = localStorage.getItem(STORAGE_KEY);
+                return JSON.parse(data) || [];
+            } catch (error) {
+                console.error('Erro ao carregar solicitações:', error);
+                return [];
+            }
+        }
+
+        function getNextId() {
+            const solicitacoes = getAllSolicitacoes();
+            if (solicitacoes.length === 0) {
+                return 1;
+            }
+            const maxId = Math.max(...solicitacoes.map(s => s.id));
+            return maxId + 1;
+        }
+
+        function createSolicitacao(data) {
+            try {
+                const solicitacoes = getAllSolicitacoes();
+                
+                const novaSolicitacao = {
+                    id: getNextId(),
+                    nomeTutor: data.nomeTutor,
+                    telefone: data.telefone,
+                    endereco: data.endereco,
+                    nomePet: data.nomePet,
+                    especie: data.especie,
+                    idadeAnos: data.idadeAnos || null,
+                    dataDesejada: data.dataDesejada,
+                    motivo: data.motivo,
+                    status: 'pendente',
+                    criadoEm: new Date().toISOString()
+                };
+
+                solicitacoes.push(novaSolicitacao);
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(solicitacoes));
+                
+                return novaSolicitacao;
+            } catch (error) {
+                console.error('Erro ao criar solicitação:', error);
+                throw new Error('Não foi possível salvar a solicitação');
+            }
+        }
+
+        function showAlert(type, message) {
+            const alertContainer = document.getElementById('alertContainer');
+            alertContainer.innerHTML = '';
+            
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+            alertDiv.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            
+            alertContainer.appendChild(alertDiv);
+            
+            if (type === 'success') {
+                setTimeout(() => {
+                    if (alertDiv.parentNode) {
+                        alertDiv.remove();
+                    }
+                }, 8000);
+            }
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            const form = document.getElementById('solicitacaoForm');
+            const formData = new FormData(form);
+            const data = {
+                nomeTutor: formData.get('nomeTutor')?.trim(),
+                telefone: formData.get('telefone')?.trim(),
+                endereco: formData.get('endereco')?.trim(),
+                nomePet: formData.get('nomePet')?.trim(),
+                especie: formData.get('especie'),
+                idadeAnos: formData.get('idadeAnos') || null,
+                dataDesejada: formData.get('dataDesejada')?.trim(),
+                motivo: formData.get('motivo')?.trim()
+            };
+            
+            const camposObrigatorios = [
+                { campo: 'nomeTutor', nome: 'Nome do Tutor' },
+                { campo: 'telefone', nome: 'Telefone' },
+                { campo: 'endereco', nome: 'Endereço' },
+                { campo: 'nomePet', nome: 'Nome do Pet' },
+                { campo: 'especie', nome: 'Espécie' },
+                { campo: 'dataDesejada', nome: 'Data Desejada' },
+                { campo: 'motivo', nome: 'Motivo' }
+            ];
+            
+            const camposFaltando = camposObrigatorios.filter(item => !data[item.campo]);
+            
+            if (camposFaltando.length > 0) {
+                const nomesCampos = camposFaltando.map(item => item.nome).join(', ');
+                showAlert('danger', `Por favor, preencha os seguintes campos obrigatórios: ${nomesCampos}`);
+                return;
+            }
+            
+            const telefoneNumeros = data.telefone.replace(/\D/g, '');
+            if (telefoneNumeros.length < 10) {
+                showAlert('danger', 'Por favor, insira um telefone válido com pelo menos 10 dígitos.');
+                return;
+            }
+            
+            try {
+                const solicitacaoSalva = createSolicitacao(data);
+                showAlert('success', '✅ Solicitação registrada com sucesso! Vamos confirmar o horário via WhatsApp.');
+                form.reset();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } catch (error) {
+                console.error('Erro ao salvar solicitação:', error);
+                showAlert('danger', 'Erro interno. Tente novamente em alguns instantes.');
+            }
+        }
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            initStorage();
+            
+            const form = document.getElementById('solicitacaoForm');
+            if (form) {
+                form.addEventListener('submit', handleFormSubmit);
+            }
+
+            // Máscara do telefone
+            const telefoneInput = document.getElementById('telefone');
+            if (telefoneInput) {
+                telefoneInput.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\D/g, '');
+                    
+                    if (value.length <= 11) {
+                        if (value.length > 6) {
+                            value = value.replace(/(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
+                        } else if (value.length > 2) {
+                            value = value.replace(/(\d{2})(\d{0,5})/, '($1) $2');
+                        } else if (value.length > 0) {
+                            value = value.replace(/(\d{0,2})/, '($1');
+                        }
+                    }
+                    
+                    e.target.value = value;
+                });
+            }
+        });
+    </script>
+</body>
+</html>
